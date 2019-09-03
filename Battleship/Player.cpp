@@ -32,24 +32,18 @@ char Player::GetShipRepresentation(int row, int col)
 
 	switch (m_shipboard[row][col].partType)
 	{
-	case Ship::ST_AIRCRAFT_CARRIER:
-		return 'A';
+	case Ship::ST_AIRCRAFT_CARRIER: return 'A';
 		break;
-	case Ship::ST_BATTLESHIP:
-		return 'B';
+	case Ship::ST_BATTLESHIP: return 'B';
 		break;
-	case Ship::ST_CRUISER:
-		return 'C';
+	case Ship::ST_CRUISER: return 'C';
 		break;
-	case Ship::ST_DESTROYER:
-		return 'D';
+	case Ship::ST_DESTROYER: return 'D';
 		break;
-	case Ship::ST_SUBMARINE:
-		return 'S';
+	case Ship::ST_SUBMARINE: return 'S';
 		break;
-	default: 
-		return ' ';
-
+	default: return ' ';
+		break;
 	};
 }
 
@@ -76,6 +70,21 @@ Ship& Player::GetShip(int index)
 std::string& Player::GetPlayerName()
 {
 	return m_playerName;
+}
+
+Player::PlayerType Player::GetPlayerType()
+{
+	const int validInputs[2] = { 1, 2 };
+
+	int input = GetIntInput("Select your game mode:\n1. Single-Player\n2. Multi-Player\n", INPUT_ERROR_STRING, validInputs, 2);
+
+	switch (input)
+	{
+	case 1: return PT_AI;
+		break;
+	case 2: return PT_HUMAN;
+		break;
+	}
 }
 
 bool Player::IsPlacementValid(Ship& currentShip, const Vector2& shipPos, Ship::ShipOrientation orientation)
@@ -157,9 +166,6 @@ bool Player::AreAllShipsSunk()
 
 void Player::PlaceShip(Ship& currentShip, const Vector2& shipPos, Ship::ShipOrientation orientation)
 {
-	//currentShip.GetShipPosition().m_row = shipPos.m_row;
-	//currentShip.GetShipPosition().m_col = shipPos.m_col;
-
 	currentShip.SetShipPosition(Vector2(shipPos.m_row, shipPos.m_col));
 	currentShip.SetShipOrientation(orientation);
 

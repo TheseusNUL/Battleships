@@ -1,12 +1,12 @@
 #include "Game.h"
 #include <cstdlib>
+#include <ctime>
 
 Game::Game(Player& player1, Player& player2)
 	: m_player1(player1)
 	, m_player2(player2)
 {
-	SetUpBoards(player1);
-	SetUpBoards(player2);
+	srand(time(NULL));
 
 	PlayGame(player1, player2);
 }
@@ -25,6 +25,9 @@ bool Game::PlayAgain()
 
 void Game::PlayGame(Player& player1, Player& player2)
 {
+	SetUpBoards(player1);
+	SetUpBoards(player2);
+
 	Player* pCurrentPlayer = &player1;
 	Player* pOtherPlayer = &player2;
 
@@ -251,5 +254,40 @@ void Game::DisplayWinner(Player& player1, Player& player2) const
 		std::cout << player2.GetPlayerName() << " is the winner. Congratulations!" << std::endl;
 	else
 		std::cout << player1.GetPlayerName() << " is the winner. Congratulations!" << std::endl;
+}
+
+Vector2 Game::GetRamdomPosition()
+{
+	Vector2 guess;
+
+	guess.m_row = rand() % BOARD_SIZE;
+	guess.m_col = rand() % BOARD_SIZE;
+
+	return guess;
+}
+
+Vector2 Game::GetAIGuess(const Player& AI)
+{
+	return GetRamdomPosition();
+}
+
+void Game::SetUpAIBoards(Player& player)
+{
+	Vector2 shipPos;
+	Ship::ShipOrientation orientation;
+
+	for (int i = 0; i < NUM_SHIPS; i++)
+	{
+		Ship& currentShip = player.GetShip(i);
+		do
+		{
+			shipPos = GetRamdomPosition();
+			orientation = Ship::ShipOrientation(rand() % 2);
+
+		} while (!player.IsPlacementValid(currentShip, shipPos, orientation));
+
+		player.PlaceShip(currentShip, shipPos, orientation);
+	}
+
 }
 

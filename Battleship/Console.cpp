@@ -1,6 +1,5 @@
 #include "Console.h"
 
-
 Console::Console(int width, int height, const std::string& title) :
 	bInitialised(false),
 	screenBuffer(nullptr),

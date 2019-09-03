@@ -24,6 +24,11 @@ public:
 	void SwitchPlayers(Player ** currentPlayer, Player ** otherPlayer);
 	void DisplayWinner(Player& player1, Player& player2) const;
 
+	//AI functions
+	Vector2 GetRamdomPosition();
+	Vector2 GetAIGuess(const Player& AI);
+	void SetUpAIBoards(Player& player);
+
 private:
 
 	Player m_player1;
