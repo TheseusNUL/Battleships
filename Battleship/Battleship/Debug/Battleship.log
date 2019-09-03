@@ -1,7 +1,0 @@
-﻿  Game.cpp
-  Player.cpp
-  Ship.cpp
-  main.cpp
-  Generating Code...
-e:\visual studio - home use\udemy\learn_cpp\games\win. console games\battleships\battleship\battleship\player.cpp(111): warning C4715: 'Player::IsPlacementValid': not all control paths return a value
-  Battleship.vcxproj -> E:\Visual Studio - Home Use\Udemy\Learn_CPP\Games\Win. Console Games\BattleShips\Battleship\Debug\Battleship.exe
