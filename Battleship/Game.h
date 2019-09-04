@@ -26,11 +26,13 @@ public:
 
 	//AI functions
 	Vector2 GetRamdomPosition();
-	Vector2 GetAIGuess(const Player& AI);
+	Vector2 GetAIGuess(Player& AI);
 	void SetUpAIBoards(Player& player);
 
 private:
 
 	Player m_player1;
 	Player m_player2;
+	GuessType m_prevGuessType;
+	Vector2 m_prevGuessPos;
 };

@@ -22,6 +22,7 @@ public:
 	Ship& GetShip(int index);
 	std::string& GetPlayerName();
 	PlayerType GetPlayerType();
+	GuessType GetGuessType(Player& otherPlayer, Vector2 guess);
 	
 	PlayerType SetGameMode();
 	void SetPlayerType(PlayerType playerType);

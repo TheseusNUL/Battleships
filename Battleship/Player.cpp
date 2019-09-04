@@ -77,6 +77,15 @@ Player::PlayerType Player::GetPlayerType()
 	return m_playerType;
 }
 
+GuessType Player::GetGuessType(Player& otherPlayer, Vector2 guess)
+{
+	switch (m_guessboard[guess.m_row][guess.m_col])
+	{
+	case GT_HIT: return GT_HIT;
+	case GT_MISSED: return GT_MISSED;
+	}
+}
+
 Player::PlayerType Player::SetGameMode()
 {
 	const int validInputs[2] = { 1, 2 };

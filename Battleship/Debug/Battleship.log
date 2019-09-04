@@ -1,3 +1,4 @@
 ﻿  Game.cpp
-e:\visual studio - home use\udemy\learn_cpp\games\win. console games\battleships\battleship\battleship\game.cpp(9): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+e:\visual studio - home use\udemy\learn_cpp\games\win. console games\battleships\battleship\battleship\game.cpp(12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+e:\visual studio - home use\udemy\learn_cpp\games\win. console games\battleships\battleship\battleship\game.cpp(347): warning C4715: 'Game::GetAIGuess': not all control paths return a value
   Battleship.vcxproj -> E:\Visual Studio - Home Use\Udemy\Learn_CPP\Games\Win. Console Games\BattleShips\Battleship\Debug\Battleship.exe

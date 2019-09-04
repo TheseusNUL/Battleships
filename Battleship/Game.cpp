@@ -1,10 +1,13 @@
 #include "Game.h"
 #include <cstdlib>
 #include <ctime>
+#include "enums.h"
 
 Game::Game(Player& player1, Player& player2)
 	: m_player1(player1)
 	, m_player2(player2)
+	, m_prevGuessType(GT_MISSED)
+	, m_prevGuessPos(0, 0)
 {
 	srand(time(NULL));
 
@@ -58,6 +61,7 @@ void Game::PlayGame(Player& player1, Player& player2)
 			case Player::PT_AI:
 			{
 				guess = GetAIGuess(*pCurrentPlayer);
+				m_prevGuessPos = guess;
 				break;
 			}
 			}
@@ -71,6 +75,9 @@ void Game::PlayGame(Player& player1, Player& player2)
 		} while (!isGuessValid);
 
 		Ship::ShipType type = pCurrentPlayer->UpdateBoards(*pOtherPlayer, guess);
+
+		if (pCurrentPlayer->GetPlayerType() == Player::PT_AI)
+			m_prevGuessType = pCurrentPlayer->GetGuessType(*pOtherPlayer, guess);
 
 		switch (pCurrentPlayer->GetPlayerType())
 		{
@@ -303,9 +310,40 @@ Vector2 Game::GetRamdomPosition()
 	return guess;
 }
 
-Vector2 Game::GetAIGuess(const Player& AI)
+Vector2 Game::GetAIGuess(Player& ai)
 {
-	return GetRamdomPosition();
+	Vector2 selectionRow[4] = { Vector2(m_prevGuessPos.m_row + 1, m_prevGuessPos.m_col), Vector2(m_prevGuessPos.m_row - 1, m_prevGuessPos.m_col),
+		Vector2(m_prevGuessPos.m_row, m_prevGuessPos.m_col + 1), Vector2(m_prevGuessPos.m_row, m_prevGuessPos.m_col - 1) };
+
+
+	Vector2 nextPos;
+	int randomIndex;
+
+	switch (m_prevGuessType)
+	{
+	case GT_HIT:
+	{
+		randomIndex = rand() % 4;
+		nextPos = selectionRow[randomIndex];
+
+		if (ai.isGuessValid(nextPos))
+		{
+			return nextPos;
+		}
+		else
+		{
+			return GetRamdomPosition();
+		}
+
+		break;
+	}
+	case GT_MISSED:
+	{
+		return GetRamdomPosition();
+	}
+
+	}
+
 }
 
 void Game::SetUpAIBoards(Player& player)
