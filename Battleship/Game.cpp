@@ -25,6 +25,11 @@ bool Game::PlayAgain()
 
 void Game::PlayGame(Player& player1, Player& player2)
 {
+	system("cls");
+
+	player1.SetPlayerType(Player::PT_HUMAN);
+	player2.SetPlayerType(player2.SetGameMode());
+
 	SetUpBoards(player1);
 	SetUpBoards(player2);
 
@@ -35,25 +40,51 @@ void Game::PlayGame(Player& player1, Player& player2)
 
 	do 
 	{
+		if(pCurrentPlayer->GetPlayerType() == Player::PT_HUMAN)
 		DrawBoards(*pCurrentPlayer);
+
 		bool isGuessValid;
 
 		do
 		{
-			std::cout << pCurrentPlayer->GetPlayerName() << " please make a guess" << std::endl;
-
-			guess = GetBoardPosition();
+			switch (pCurrentPlayer->GetPlayerType())
+			{
+			case Player::PT_HUMAN:
+			{
+				std::cout << pCurrentPlayer->GetPlayerName() << " please make a guess" << std::endl;
+				guess = GetBoardPosition();
+				break;
+			}
+			case Player::PT_AI:
+			{
+				guess = GetAIGuess(*pCurrentPlayer);
+				break;
+			}
+			}
 			
 			isGuessValid = pCurrentPlayer->isGuessValid(guess);
 
-			if (!isGuessValid)
+			if (!isGuessValid && pCurrentPlayer->GetPlayerType() == Player::PT_HUMAN)
 			{
 				std::cout << "This was not a valid guess! Please try again." << std::endl;
 			}
 		} while (!isGuessValid);
 
 		Ship::ShipType type = pCurrentPlayer->UpdateBoards(*pOtherPlayer, guess);
-		DrawBoards(*pCurrentPlayer);
+
+		switch (pCurrentPlayer->GetPlayerType())
+		{
+		case Player::PT_HUMAN:
+		{
+			DrawBoards(*pCurrentPlayer);
+			break;
+		}
+		case Player::PT_AI:
+		{
+			DrawBoards(*pOtherPlayer);
+			std::cout << pCurrentPlayer->GetPlayerName() << " chose tile " << char(guess.m_row + 'A') << guess.m_col + 1 << std::endl;
+		}
+		}
 
 		/* -------------------------------------------------------------------------------
 			index for type is type-1 due to enum of ships types being one out of sync with 
@@ -77,6 +108,12 @@ void Game::PlayGame(Player& player1, Player& player2)
 void Game::SetUpBoards(Player& player)
 {
 	player.ClearBoards();
+
+	if (player.GetPlayerType() == Player::PlayerType::PT_AI)
+	{
+		SetUpAIBoards(player);
+		return;
+	}
 
 	for (int i = 0; i < NUM_SHIPS; i++)
 	{

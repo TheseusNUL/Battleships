@@ -22,6 +22,9 @@ public:
 	Ship& GetShip(int index);
 	std::string& GetPlayerName();
 	PlayerType GetPlayerType();
+	
+	PlayerType SetGameMode();
+	void SetPlayerType(PlayerType playerType);
 
 	bool IsPlacementValid(Ship& currentShip, const Vector2& shipPos, Ship::ShipOrientation orientation);
 	bool isGuessValid(Vector2 guess);

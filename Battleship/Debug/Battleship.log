@@ -1,11 +1,3 @@
-﻿  Console.cpp
-e:\visual studio - home use\udemy\learn_cpp\games\win. console games\battleships\battleship\battleship\console.cpp(42): warning C4018: '<': signed/unsigned mismatch
-  Game.cpp
+﻿  Game.cpp
 e:\visual studio - home use\udemy\learn_cpp\games\win. console games\battleships\battleship\battleship\game.cpp(9): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Player.cpp
-  Utils.cpp
-  main.cpp
-  Generating Code...
-e:\visual studio - home use\udemy\learn_cpp\games\win. console games\battleships\battleship\battleship\player.cpp(88): warning C4715: 'Player::GetPlayerType': not all control paths return a value
-e:\visual studio - home use\udemy\learn_cpp\games\win. console games\battleships\battleship\battleship\player.cpp(120): warning C4715: 'Player::IsPlacementValid': not all control paths return a value
   Battleship.vcxproj -> E:\Visual Studio - Home Use\Udemy\Learn_CPP\Games\Win. Console Games\BattleShips\Battleship\Debug\Battleship.exe

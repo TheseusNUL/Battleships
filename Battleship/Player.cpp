@@ -74,6 +74,11 @@ std::string& Player::GetPlayerName()
 
 Player::PlayerType Player::GetPlayerType()
 {
+	return m_playerType;
+}
+
+Player::PlayerType Player::SetGameMode()
+{
 	const int validInputs[2] = { 1, 2 };
 
 	int input = GetIntInput("Select your game mode:\n1. Single-Player\n2. Multi-Player\n", INPUT_ERROR_STRING, validInputs, 2);
@@ -85,6 +90,11 @@ Player::PlayerType Player::GetPlayerType()
 	case 2: return PT_HUMAN;
 		break;
 	}
+}
+
+void Player::SetPlayerType(PlayerType playerType)
+{
+	m_playerType = playerType;
 }
 
 bool Player::IsPlacementValid(Ship& currentShip, const Vector2& shipPos, Ship::ShipOrientation orientation)
